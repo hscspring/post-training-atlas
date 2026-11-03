@@ -37,7 +37,7 @@ flowchart LR
     T5 --> T6
     T7 --> T6
 
-    T6 ~~~ PAD[" "]
+    T6 ~~~ PAD["controls"]
     style PAD fill:none,stroke:none,color:transparent
 ```
 
