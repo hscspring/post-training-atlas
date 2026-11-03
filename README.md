@@ -36,6 +36,9 @@ flowchart LR
     T4 --> T6
     T5 --> T6
     T7 --> T6
+
+    T6 ~~~ PAD[" "]
+    style PAD fill:none,stroke:none,color:transparent
 ```
 
 Arrows show conceptual dependency and extension, not a strict chronology. Track 06 is the converging lens; it connects the mechanisms above rather than replacing them as a final stage.
