@@ -19,19 +19,19 @@ You do not need to read this atlas from top to bottom.
 ## Atlas at a Glance
 
 ```mermaid
-flowchart TD
-    P["Pretrained Model<br/>starting point"] --> T1["01 · R1 Full-Chain<br/>data · SFT · RL"]
+flowchart LR
+    T1["01 · R1 Full-Chain<br/>data · SFT · RL"]
 
     T1 --> T2["02 · GRPO Family<br/>policy optimization"]
-    T1 --> T3["03 · Reward, Data & Verifiers<br/>where learning signals come from"]
+    T1 --> T3["03 · Reward & Verifiers<br/>learning signals"]
     T3 -->|signals & feedback| T2
 
-    T2 --> T4["04 · MoE RL Stability<br/>cross-architecture constraints"]
-    T2 --> T7["07 · Agentic RL<br/>step-level credit assignment"]
-    T2 --> T5["05 · Paradigm Frontier<br/>context · experience · online learning"]
+    T2 --> T4["04 · MoE RL Stability"]
+    T2 --> T7["07 · Agentic RL<br/>step-level credit"]
+    T2 --> T5["05 · Paradigm Frontier<br/>context · experience"]
     T3 -->|internal feedback| T5
 
-    T2 --> T6["06 · Unified Theory<br/>SFT × RL · distillation · distribution alignment"]
+    T2 --> T6["06 · Unified Theory<br/>SFT × RL · distillation · alignment"]
     T3 --> T6
     T4 --> T6
     T5 --> T6
