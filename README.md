@@ -5,7 +5,16 @@
 
 **Scope: model post-training across modalities · continuously updated**
 
-[Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
+[Start Here](#start-here) · [Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
+
+## Start Here
+
+You do not need to read this atlas from top to bottom.
+
+- **New to post-training?** Start with the [7 Tracks](#7-tracks--the-authors-verdicts): R1 full-chain → reward and verifiers → SFT × RL and distribution alignment gives the shortest conceptual route.
+- **Looking up a method or paper?** Jump to the [paper index](#papers), then follow its **My Notes** link for the corresponding Chinese deep-dive.
+- **Following the author's thinking?** Read the [chronological timeline](#chronological-blog-timeline), where ideas are kept in publishing order rather than reorganized after the fact.
+- **Checking what belongs here?** Read the [inclusion policy](#scope--inclusion-policy); earlier and adjacent work is preserved in [the archive](ARCHIVE.md).
 
 This repository maps the **modern model post-training** landscape. Its center of gravity is RL, reward, SFT × RL, distillation, and distribution alignment. Text, image, video, world models, and embodied policies are different carriers of those mechanisms, not separate silos and not automatic reasons for inclusion.
 
