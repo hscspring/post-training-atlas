@@ -6,7 +6,7 @@ Items here are grouped by mechanism and historical role. They do not participate
 
 ## Personal RL × NLP Historical Anchors
 
-These works mattered personally before the modern LLM post-training map took shape. The longer reflection is in [《通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点》](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/): *“22 年 RL4LMs 出来后我兴奋的晚上觉都没睡着，第一时间就读了他们的代码。”*
+These works mattered personally before the modern LLM post-training map took shape. The longer reflection is cited in the [main map](README.md#track-05--paradigm-frontier-20252026): *“22 年 RL4LMs 出来后我兴奋的晚上觉都没睡着，第一时间就读了他们的代码。”*
 
 - [RL4LMs / NLPO](http://arxiv.org/abs/2210.01241) ([GitHub](https://github.com/allenai/rl4lms)) — the first moment RL × NLP felt like it could really land.
 - [Fine-Tuning Language Models from Human Preferences](http://arxiv.org/abs/1909.08593) ([GitHub](https://github.com/openai/lm-human-preferences)) — OpenAI's earliest RLHF experiment.
@@ -29,6 +29,7 @@ These works mattered personally before the modern LLM post-training map took sha
 - [T0 / Multitask Prompted Training](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/) — task and prompt diversity for zero-shot transfer.
 - [FLAN](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/) — instruction tuning as a bridge to zero-shot task following.
 - [ChatGPT Prompt Engineering](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/) — practical inference-time behavior shaping.
+- [ChatGPT Prompt Examples](https://yam.gift/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/) — an early practical example collection, kept outside the mechanism-focused core.
 
 ## Transitional Reflections
 
