@@ -11,9 +11,9 @@ This repository maps the **model post-training** landscape. Post-R1 LLM research
 
 ## Scope & Inclusion Policy
 
-- **Core scope**: post-training of pretrained models across language, multimodal, diffusion, flow, video, world-model, and embodied settings.
+- **Core scope**: any method that further shapes an already pretrained model, regardless of modality, architecture, or deployment domain.
 - **Organized by mechanism, not modality**: RL/RLVR, policy optimization, reward and verifiers, alignment, supervised or preference fine-tuning, distillation, distribution matching, agent learning, adaptation, and post-training stability belong to one map.
-- **A work does not need to transfer back to LLMs to qualify**: if it meaningfully shapes a pretrained model after pretraining, it is post-training in its own right.
+- **Inclusion is determined by training stage and mechanism**: a method does not need to transfer to another modality to justify its place here.
 - **Pure pre-training is excluded**: scaling laws, NTP, continual pre-training, and base-model construction stay out unless they are necessary context inside a post-training analysis.
 - **The boundary is conceptual, not terminological**: a paper does not need to call itself “RL” or even use the word “post-training”; it needs to contribute a meaningful signal, objective, estimator, or feedback loop for shaping an already pretrained model.
 
@@ -33,6 +33,8 @@ Awesome lists are *retrievers*. This repo is a *curator*.
 ## 7 Tracks · The Author's Verdicts
 
 Blog posts on [yam.gift](https://yam.gift) are grouped into 7 tracks. Each verdict below is the author's own bottom-line judgment, not a paper summary.
+
+These are the atlas's current intellectual threads, not a permanent ontology. New work joins the track whose mechanism it extends; modality is metadata, not a top-level boundary.
 
 ### Track 01 — R1 Full-Chain (2025)
 
@@ -316,10 +318,11 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | RL's Razor | Why Online Reinforcement Learning Forgets Less | — | 2025 | [paper](https://arxiv.org/abs/2509.04259) | (omnibus → [SFT-vs-RL](https://yam.gift/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/)) |
 | Conditional SFT | Rethinking Generalization in Reasoning SFT | — | 2026 | [paper](https://arxiv.org/abs/2604.06628) | (omnibus → [SFT-vs-RL](https://yam.gift/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/)) |
 | MiniLLM | MiniLLM: Knowledge Distillation of Large Language Models | THU, MSR | 2023 | [paper](https://arxiv.org/abs/2306.08543) | (described in [Open-LLM-RL-ShowCase](https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/): forward vs reverse KL in distillation; connected in [SVM-to-Alignment](https://yam.gift/2026/07/04/NLP/LLM-Training/2026-07-04-SVM-to-Alignment/): reverse-KL distillation sits on the same mode-seeking axis as RL/DPO) |
+| RL-Co | Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models | — | 2026 | [paper](https://arxiv.org/abs/2602.12628) | [VLA Sim-Real 协同训练](https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/) (mixed sim+real SFT warm-starts the policy; closed-loop simulation RL adds capability while an auxiliary real-data SFT loss anchors the policy against catastrophic forgetting) |
 
-### On-Policy Distillation & Policy-Diff Learning
+### Distribution Matching, On-Policy Distillation & Policy-Diff Learning
 
-> Not every work below is RL. They belong together because policy diff is the shared training signal: it first reconstructs or extrapolates a target, then crosses into RL as an implicit reward or a transformation of verifier gradients.
+> Not every work below is RL. They belong together because distributional differences become training signals: a policy diff can reconstruct or extrapolate a target, become an implicit reward, or transform verifier gradients; a score diff can directly supply the gradient of distribution matching.
 
 | Abbr | Title | From | Year | Link | My Notes |
 |------|-------|------|------|------|----------|
@@ -334,14 +337,6 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | OPRD | Eliciting Weak-to-Strong Generalization with On-Policy Reverse Distillation | — | 2026 | [paper](https://arxiv.org/abs/2609.08798) | (derived in [OPD-RL](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/): project verifier gradients onto the teacher-diff direction and amplify that component without introducing new stationary points) |
 | Beyond Teacher | Learning beyond Teacher: Generalized On-Policy Distillation with Reward Extrapolation | — | 2026 | [paper](https://arxiv.org/abs/2602.12125) | (connected in [OPD-RL](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/): OPD is a special case of dense KL-regularized RL) |
 | OPDD | On-Policy Delta Distillation | — | 2026 | [paper](https://arxiv.org/abs/2607.15161) | (connected in [OPD-RL](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/): policy delta used directly as a dense reward) |
-
-### Multimodal, World-Model & Embodied Post-Training
-
-> Post-training does not stop at language. Diffusion, video, world models, and embodied policies belong on the same map when pretrained models are further shaped for generation, control, interaction, or deployment.
-
-| Abbr | Title | From | Year | Link | My Notes |
-|------|-------|------|------|------|----------|
-| RL-Co | Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models | — | 2026 | [paper](https://arxiv.org/abs/2602.12628) | [VLA Sim-Real 协同训练](https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/) (mixed sim+real SFT warm-starts the policy; closed-loop simulation RL adds capability while an auxiliary real-data SFT loss anchors the policy against catastrophic forgetting) |
 | OmniDreams | OmniDreams: Real-Time Generative World Model for Closed-Loop Autonomous Vehicle Simulation | NVIDIA | 2026 | [paper](https://arxiv.org/abs/2606.03159) | [OmniDreams：实时世界模型背后的 Self Forcing 与 DMD](https://yam.gift/2026/11/02/Embodied/2026-11-02-OmniDreams/) (Self Forcing closes the train–inference history gap; DMD turns generated-vs-real score difference into the gradient of reverse-KL distribution alignment — the same “learn on your own distribution, correct by difference” lens expressed in a video world model) |
 
 ### Beyond RL — Training-Free / Behavior Shaping / Real-time PEFT
