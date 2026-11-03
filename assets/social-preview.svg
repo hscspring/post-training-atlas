@@ -68,12 +68,12 @@
 
     <!-- connections behind nodes -->
     <g fill="none" stroke="#64748b" stroke-opacity="0.78" stroke-width="1.6" marker-end="url(#arrow)">
-      <path d="M 808 273 C 830 273, 825 177, 850 177"/>
-      <path d="M 808 297 C 830 297, 825 377, 840 377"/>
+      <path d="M 818 273 C 830 273, 825 177, 840 177"/>
+      <path d="M 818 297 C 830 297, 825 377, 840 377"/>
       <path d="M 936 342 C 936 303, 936 250, 936 213"/>
-      <path d="M 1018 162 C 1038 162, 1038 137, 1058 137"/>
-      <path d="M 1018 177 C 1038 177, 1038 246, 1058 246"/>
-      <path d="M 1018 190 C 1040 190, 1038 354, 1058 354"/>
+      <path d="M 1028 162 C 1038 162, 1038 137, 1058 137"/>
+      <path d="M 1028 177 C 1038 177, 1038 246, 1058 246"/>
+      <path d="M 1028 190 C 1040 190, 1038 354, 1058 354"/>
       <path d="M 1028 377 C 1038 377, 1038 366, 1058 366"/>
       <path d="M 934 413 C 934 448, 934 470, 934 493"/>
       <path d="M 1140 169 C 1140 345, 1064 445, 1020 494"/>
@@ -83,18 +83,18 @@
 
     <!-- track 01 -->
     <g filter="url(#shadow)">
-      <rect x="650" y="250" width="158" height="70" rx="13" fill="#0f2534" stroke="#5eead4" stroke-width="1.5"/>
-      <text x="668" y="277" fill="#5eead4" font-size="14" font-weight="800">01</text>
-      <text x="701" y="277" fill="#f8fafc" font-size="16" font-weight="700">R1 Full-Chain</text>
-      <text x="668" y="302" fill="#94a3b8" font-size="13">data · SFT · RL</text>
+      <rect x="630" y="249" width="188" height="71" rx="13" fill="#0f2534" stroke="#5eead4" stroke-width="1.5"/>
+      <text x="648" y="277" fill="#5eead4" font-size="14" font-weight="800">01</text>
+      <text x="681" y="277" fill="#f8fafc" font-size="16" font-weight="700">R1 Full-Chain</text>
+      <text x="648" y="302" fill="#94a3b8" font-size="13">data · SFT · RL</text>
     </g>
 
     <!-- track 02 -->
     <g filter="url(#shadow)">
-      <rect x="850" y="142" width="168" height="71" rx="13" fill="#111d36" stroke="#60a5fa" stroke-width="1.4"/>
-      <text x="868" y="170" fill="#60a5fa" font-size="14" font-weight="800">02</text>
-      <text x="901" y="170" fill="#f8fafc" font-size="16" font-weight="700">GRPO Family</text>
-      <text x="868" y="195" fill="#94a3b8" font-size="13">policy optimization</text>
+      <rect x="840" y="142" width="188" height="71" rx="13" fill="#111d36" stroke="#60a5fa" stroke-width="1.4"/>
+      <text x="858" y="170" fill="#60a5fa" font-size="14" font-weight="800">02</text>
+      <text x="891" y="170" fill="#f8fafc" font-size="16" font-weight="700">GRPO Family</text>
+      <text x="858" y="195" fill="#94a3b8" font-size="13">policy optimization</text>
     </g>
 
     <!-- track 03 -->
