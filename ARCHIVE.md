@@ -30,18 +30,10 @@ These works mattered personally before the modern LLM post-training map took sha
 - [FLAN](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/) — instruction tuning as a bridge to zero-shot task following.
 - [ChatGPT Prompt Engineering](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/) — practical inference-time behavior shaping.
 
-## RLHF & Alignment Background
-
-- [ChatGPT Labeling](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/) — demonstrations, preference rankings, labelers, and annotation rules.
-- [ChatGPT / RLHF Introduction](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/) — SFT → RM → PPO and KL anchoring.
-
-InstructGPT itself remains in the main paper map because it is a direct foundation of modern RLHF.
-
 ## Transitional Reflections
 
 - [Think About LLM](https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/) — SFT data, LoRA, distillation, and an early return to RL.
 - [Think About AI](https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/) — RL, inference-time scaling, and learning through generated context.
-- [LLM Instruction Following Papers (2024–2025)](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/) — source notes for CAR, Partial Adaptation, and IOPO; superseded by the later instruction-following survey in the core timeline.
 
 ## Speech & Multimodal Adaptation
 
