@@ -7,15 +7,15 @@
 
 [Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
 
-This repository maps the **model post-training** landscape. Post-R1 LLM research is its historical starting point and current center of gravity, not its boundary. Text, image, video, world models, and embodied policies are different carriers of the same question: how is a pretrained model further shaped through reward, preference, demonstration, distillation, context, experience, interaction, or distribution matching?
+This repository maps the **modern model post-training** landscape. Its center of gravity is RL, reward, SFT × RL, distillation, and distribution alignment. Text, image, video, world models, and embodied policies are different carriers of those mechanisms, not separate silos and not automatic reasons for inclusion.
 
 ## Scope & Inclusion Policy
 
-- **Core scope**: any method that further shapes an already pretrained model, regardless of modality, architecture, or deployment domain.
-- **Organized by mechanism, not modality**: RL/RLVR, policy optimization, reward and verifiers, alignment, supervised or preference fine-tuning, distillation, distribution matching, agent learning, adaptation, and post-training stability belong to one map.
-- **Inclusion is determined by training stage and mechanism**: a method does not need to transfer to another modality to justify its place here.
+- **Core scope**: work that materially advances one of the atlas's active mechanisms — RL/RLVR, reward and verifiers, SFT × RL, preference optimization, distillation, distribution matching, agent learning, or post-training stability.
+- **Organized by mechanism, not modality**: a method can come from language, vision, video, world models, or embodied policies; modality is metadata.
+- **“After pre-training” is necessary, not sufficient**: ordinary downstream fine-tuning, generic PEFT, prompting, or a new application does not enter the core map unless it adds a reusable mechanism or a meaningful connection between active tracks.
 - **Pure pre-training is excluded**: scaling laws, NTP, continual pre-training, and base-model construction stay out unless they are necessary context inside a post-training analysis.
-- **The boundary is conceptual, not terminological**: a paper does not need to call itself “RL” or even use the word “post-training”; it needs to contribute a meaningful signal, objective, estimator, or feedback loop for shaping an already pretrained model.
+- **Earlier and adjacent work is archived, not erased**: useful foundations and neighboring adaptations live in the appendix without expanding the main narrative.
 
 ## Why this repo (and not another Awesome list)
 
@@ -24,7 +24,7 @@ Awesome lists are *retrievers*. This repo is a *curator*.
 - **Has a verdict, not a vote.** Each of the 7 tracks ends with the author's bottom-line judgment ("data sets the ceiling, algorithms approach it"; "most RL is sampling polish, not extrapolation"; "all internal-feedback methods compress entropy → exploration crisis"), not a paper summary.
 - **Cross-links across papers.** RLOO ≡ GRPO with Fnorm=1 (derived in GiGPO); REINFORCE + IS → CISPO loss (extended in CISPO); Activation Steering & Context Engineering are the *upstream signals* of Training-Free RL. These connections only surface when one person reads everything.
 - **A narrative, not a database.** The Chronological Blog Timeline follows ideas as they connect and branch, rather than separating them into isolated modality silos.
-- **Personal historical anchors.** Pre-R1 works (RL4LMs, FTHP, Quark, DT) live in their own corner with a one-line *why I personally cared*, not as bibliography filler.
+- **Historical context without historical takeover.** Earlier RL × NLP anchors live in the archive; only the final pre-R1 reasoning line remains in the core map where it connects directly to R1.
 
 **Coverage**: continuously expanding, organized by shared post-training mechanisms rather than a fixed modality or a closed checklist.
 
@@ -64,7 +64,6 @@ These are the atlas's current intellectual threads, not a permanent ontology. Ne
 - **Drift 2 (data)**: good reward data is more like *unlocking* the base model's existing capabilities than *teaching* new ones (Skywork-Reward-V2, Spurious Rewards).
 - **Drift 3 (Verify-Free)**: when no external verifier exists, all internal-feedback methods (TTRL / EM / RENT / EMPO / Intuitor) end up *compressing* entropy. Long-term, an exploration crisis is inevitable — ETTRL / Darling / EVOL-RL / RESTRAIN are all band-aids on the same wound.
 - **Drift 4 (philosophy)**: a reward is a *lossy compression* of preference, and always lossy. Reward hacking is therefore structural, not a bug — RMs provably memorize surface heuristics (length, tone, sycophancy). The reframe: treat reward as a *prior to be revised*, not ground truth; the "Reward is Enough" vs "Scalar reward is not enough" debate is really about whether one scalar can carry a vector of incommensurable preferences.
-- **The prehistory matters**: InstructGPT's SFT demonstrations, preference rankings, labeler selection, and HHH rubric already made the central point in 2022–2023: the reward pipeline begins with the people, prompts, and annotation rules that define what "better" means. The optimizer only comes later.
 
 ### Track 04 — MoE RL Stability (2026)
 
@@ -84,7 +83,6 @@ These are the atlas's current intellectual threads, not a permanent ontology. Ne
 - **New paradigm A — Training-Free RL**: advantage lives in text/context, not in weight space (TRT, Training-Free GRPO, MemAPO, Update-Free Steering).
 - **New paradigm B — Experience-as-RL**: the loop becomes "trajectory → information gain → re-supervision". Reflection, meta-search and open-ended learning are all data-construction tricks in disguise.
 - **Constraint alignment**: instruction following becomes RLVR once a complex instruction is decomposed into checkable constraints. The hard part moves from inventing a new optimizer to engineering verifiers and preference pairs that preserve every constraint.
-- **Instruction-tuning roots**: MetaICL → T0 → FLAN established that task diversity, natural-language instructions, and examples can themselves be post-training signals. Later work adds an important qualification: stronger teachers are not automatically better teachers, because compatibility with the student distribution matters.
 - **Higher-level question**: "reasoning" should be studied as a *data format*, not as an RL task (Think-Strategy / LEPA).
 - **Forward extrapolation of this track** (cited anchor, not a paper deep-dive): [从持续学习到下一代 AI 方向探讨](https://yam.gift/2026/08/08/AI/2026-08-08-Next-AI/) argues the next-gen learning unit is *experience*, not token — with RL as the self-evolution core (Sutton's continual backprop, experience-based learning, In-Place TTT, PEFT-scaling). It is the forward-looking companion to the Pre-R1 reflection anchor [AI-Future-Framework](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/).
 
@@ -96,11 +94,9 @@ These are the atlas's current intellectual threads, not a permanent ontology. Ne
 - **Forgetting law**: on-policy RL stays closer to base (KL-minimal path → less forgetting, RL's Razor); SFT can drift arbitrarily far.
 - **One estimator**: HPT/GFT unify SFT/RL into one policy gradient estimator, differing only in data source and stabilizer.
 - **Embodied SFT × RL — Sim-Real co-training**: Beyond Imitation first initializes a VLA policy with mixed simulated and real demonstrations, then runs closed-loop RL in simulation while retaining an auxiliary SFT loss on scarce real demonstrations. The real-data term is not merely extra training data; it is an anchor that prevents simulation RL from forgetting deployable real-world behavior.
-- **Staged capability adaptation**: OmniFlatten, Freeze-Omni, Ichigo, TTS-LLaMA, Phi-4-Multimodal, and Voila all add speech or multimodal capability to an existing language backbone through staged alignment, adapters/LoRA, frozen-core training, SFT, or preference optimization. The mechanism is the point; speech is only the carrier.
 - **Distribution alignment lens**: SVM / DPO / RLHF / SFT all reduce to aligning a policy distribution to target anchors via log density-ratio rewards (r = log d⁺/d⁻). Differences lie in three axes: anchor count (one vs two), KL direction (forward = mode-covering SFT, reverse = mode-seeking RL/DPO — the same axis as MiniLLM's reverse-KL distillation), and anchor observability (explicit classifier vs implicit optimal policy). SFT's "pure pull, no push" (only d⁺, no d⁻) explains its instability on low-probability tokens (GFT's 1/π_θ explosion).
 - **Distillation–RL bridge**: OPD first isolates a teacher's *capability direction* as policy diff instead of copying its raw output; when that diff comes from an RL-trained teacher, it is also an implicit reward. The same directional signal can reconstruct a target policy (OPD), become a dense reward (Direct-OPD), or reshape verifier gradients without changing their stationary points (OPRD).
 - **Generative-model extension — Self Forcing DMD**: OmniDreams trains on model-generated history to reduce exposure bias, then minimizes reverse KL on model rollouts by turning the generated-vs-real score difference into a direct gradient. It is post-training in its own right, while also revealing a shared pattern across tokens and video: learn on your own distribution, then use a distributional difference as the correction signal.
-- **Earlier objective-design roots**: Sentence-BERT, SimCSE, and R-Drop already treated fine-tuning as geometry and distribution shaping — choose what to pull together, what to push apart, and which stochastic views should agree. They are not modern foundation-model post-training recipes, but they are clean ancestors of the atlas's current unifying lens.
 
 ### Track 07 — Agentic RL (2025–2026)
 
@@ -193,37 +189,11 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | RESTRAIN | RESTRAIN: From Spurious Votes to Signals — Self-Driven RL with Self-Penalization | — | 2025 | [paper](https://arxiv.org/abs/2510.02172) | (omnibus → [Verify-Free RL](https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/)) |
 | No Free Lunch | No Free Lunch: Rethinking Internal Feedback for LLM Reasoning | — | 2025 | [paper](https://arxiv.org/abs/2506.17219) | (theoretical critique of Verify-Free; omnibus → [Verify-Free RL](https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/)) |
 
-### Fine-Tuning Objectives & Data Foundations
-
-> Earlier post-training mechanisms, before “post-training” became a field name: change representation geometry, enforce consistency between stochastic views, or improve the data distribution seen during adaptation.
-
-| Abbr | Title | From | Year | Link | My Notes |
-|------|-------|------|------|------|----------|
-| SBERT | Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks | UKP | 2019 | [paper](https://arxiv.org/abs/1908.10084) | [从 Sentence-BERT 谈句子表征](https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/) (fine-tune the geometry with siamese/triplet objectives so sentence distance becomes useful) |
-| SimCSE | SimCSE: Simple Contrastive Learning of Sentence Embeddings | Princeton | 2021 | [paper](https://arxiv.org/abs/2104.08821) | [简单的对比学习框架：SimCSE](https://yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/) (dropout supplies two views; contrastive learning balances alignment and uniformity) |
-| R-Drop | R-Drop: Regularized Dropout for Neural Networks | Microsoft | 2021 | [paper](https://arxiv.org/abs/2106.14448) | [R-Drop](https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/) (bidirectional KL makes two dropout subnetworks agree during fine-tuning) |
-| NLP DA Survey | Data Augmentation Approaches in Natural Language Processing: A Survey | — | 2021 | [paper](https://arxiv.org/abs/2110.01852) | [NLP 数据增强综述](https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/) (paraphrase-, noise-, and sampling-based ways to reshape the adaptation distribution) |
-
-### Staged Alignment & Capability Adaptation
-
-> Reuse a pretrained backbone, then add a capability through staged alignment, parameter-efficient modules, frozen-core training, supervised adaptation, or preferences. These speech examples live here by mechanism, not as a modality silo.
-
-| Abbr | Title | From | Year | Link | My Notes |
-|------|-------|------|------|------|----------|
-| OmniFlatten | OmniFlatten: An End-to-end GPT Model for Seamless Voice Conversation | Alibaba | 2024 | [paper](https://arxiv.org/abs/2410.17799) | (omnibus → [OMNI 论文速览 2024](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/): no new backbone pretraining; modality alignment → half-duplex → three-stream full-duplex → speech-only full-duplex post-training) |
-| Freeze-Omni | Freeze-Omni: A Smart and Low Latency Speech-to-speech Dialogue Model with Frozen LLM | Tencent | 2024 | [paper](https://arxiv.org/abs/2411.00774), [GitHub](https://github.com/VITA-MLLM/Freeze-Omni) | (omnibus → [OMNI 论文速览 2024](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/): freeze the language backbone, align speech input/output in stages, then learn duplex control without catastrophic forgetting) |
-| Ichigo | Ichigo: Mixed-Modal Early-Fusion Realtime Voice Assistant | Homebrew Research | 2024 | [paper](https://arxiv.org/abs/2410.15316) | (omnibus → [SLM 论文速览 2024](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/): speech-token adaptation → QA instruction tuning → interaction-focused enhanced fine-tuning) |
-| TTS-LLaMA | Get Large Language Models Ready to Speak: A Late-fusion Approach for Speech Generation | Meta | 2024 | [paper](https://arxiv.org/abs/2410.20336) | (omnibus → [SLM 论文速览 2024](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/): PEFT teaches a frozen-capability LLM to emit semantic speech tokens, with a separate acoustic model completing generation) |
-| Phi-4-Multimodal | Phi-4-Mini Technical Report: Compact yet Powerful Multimodal Language Models via Mixture-of-LoRAs | Microsoft | 2025 | [paper](https://arxiv.org/abs/2503.01743), [model](https://huggingface.co/microsoft/Phi-4-multimodal-instruct) | (omnibus → [OMNI 论文速览 2025](https://yam.gift/2025/03/08/Paper/MM/2025-03-08-OMNI-Papers-2025/): modality-specific LoRA/router adaptation plus multimodal SFT, DPO, and RLHF) |
-| Voila | Voila: Voice-Language Foundation Models for Real-Time Autonomous Interaction and Voice Role-Play | Maitrix | 2025 | [paper](https://arxiv.org/abs/2505.02707), [GitHub](https://github.com/maitrix-org/Voila) | [从 Voila 看语音端到端发展](https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/) (multi-task speech/text alignment and response-only SFT around an LLM backbone; semantic/acoustic token factorization keeps adaptation tractable) |
-
 ### Alignment Classics
 
 | Abbr | Title | From | Year | Link | My Notes |
 |------|-------|------|------|------|----------|
 | RLHF / InstructGPT | Training language models to follow instructions with human feedback | OpenAI | 2022 | [paper](https://arxiv.org/abs/2203.02155) | [ChatGPT 基础科普：知其一点所以然](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/) (SFT → RM → PPO and KL anchoring); [ChatGPT 标注指南](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/) (demonstrations, rankings, labelers, and HHH guidelines) |
-| HITL NLP | Putting Humans in the Natural Language Processing Loop: A Survey | Stanford | 2021 | [paper](https://arxiv.org/abs/2103.04044) | [Put Human in NLP Loop](https://yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/) (human feedback as a full loop: sample, collect, update, repeat) |
-| Debiasing Survey | An Empirical Survey of the Effectiveness of Debiasing Techniques for Pre-Trained Language Models | McGill | 2021 | [paper](https://arxiv.org/abs/2110.08527) | [Debiasing Techniques for Pre-Trained Language Models](https://yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/) (CDA, Self-Debias, representation projection, and the capability–bias trade-off) |
 | Weaver | Weaver: Foundation Models for Creative Writing | Alibaba | 2024 | [paper](https://arxiv.org/abs/2401.17268) | [LLM DataManagement：Weaver](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/) (reverse-engineer SFT instructions from strong outputs; synthesize DPO negatives by minimally violating expert principles) |
 | RLOO | Back to Basics: Revisiting REINFORCE Style Optimization for RLHF | Cohere | 2024 | [paper](https://arxiv.org/abs/2402.14740) | (derived in [GiGPO](https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/): GRPO with Fnorm=1 ≡ RLOO) |
 | ReMax | ReMax: A Simple, Effective, and Efficient RL Method for LLM | CUHK | 2024 | [paper](https://arxiv.org/abs/2310.10505) | (contrasted in [Reinforce++](https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/): greedy-baseline variant — inefficient because greedy response is unused for training) |
@@ -253,9 +223,6 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 
 | Abbr | Title | From | Year | Link | My Notes |
 |------|-------|------|------|------|----------|
-| MetaICL | MetaICL: Learning to Learn In Context | UW | 2021 | [paper](https://arxiv.org/abs/2110.15943) | [MetaICL：Learning to Learn In Context](https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/) (meta-train on task demonstrations so a model learns how to recover a new task in context) |
-| T0 | Multitask Prompted Training Enables Zero-Shot Task Generalization | BigScience | 2021 | [paper](https://arxiv.org/abs/2110.08207) | [多任务 Prompt 训练与 Zero-shot 泛化](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/) (task and prompt diversity as the training signal) |
-| FLAN | Finetuned Language Models Are Zero-Shot Learners | Google | 2021 | [paper](https://arxiv.org/abs/2109.01652) | [FLAN：Fine-tuned Language Models are Zero-Shot Learners](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/) (instruction tuning turns supervised task mixtures into zero-shot capability) |
 | CAR | Stronger Models are NOT Stronger Teachers for Instruction Tuning | Allen AI, UW | 2024 | [paper](https://arxiv.org/abs/2411.07133) | [LLM 指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/) (teacher quality must be adjusted by compatibility with the student distribution) |
 | Partial Adaptation | Improving Instruct Models for Free: A Study on Partial Adaptation | Bloomberg | 2025 | [paper](https://arxiv.org/abs/2504.11626) | (omnibus → [Instruction-Following-Papers](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/): interpolate base and instruct weights to expose the ICL–instruction-following trade-off) |
 | IF-RL | Incentivizing Reasoning for Advanced Instruction-Following of Large Language Models | — | 2025 | [paper](https://arxiv.org/abs/2506.01413) | [指令跟随近期工作梳理](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/) (decompose multi-constraint instructions, then train with RL and rule-verifiable rewards) |
@@ -312,16 +279,12 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | PPO | Proximal Policy Optimization Algorithms | OpenAI | 2017 | [paper](https://arxiv.org/abs/1707.06347) | (extended in [VAPO](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/): Value-based Augmented PPO with GAE refinements / value-pretraining; contrasted in [Reinforce++](https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/): PPO with critic vs critic-free Reinforce-style) |
 | REINFORCE | Simple Statistical Gradient-Following Algorithms | Northeastern | 1992 | [paper](https://people.cs.umass.edu/~barto/courses/cs687/williams92simple.pdf) | (extended in [CISPO](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/): REINFORCE + IS → CISPO loss; framed in [Open-LLM-RL-ShowCase](https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/): REINFORCE-with-baseline as analytic frame for all GRPO variants) |
 
-### Pre-R1 Foundations (Historical Anchors)
+### Pre-R1 Reasoning Transition (2024–early 2025)
 
-> Pre-R1 RL × NLP works the author considers personally important. Kept here for sentimental and historical reasons rather than as active reading. Includes the *final days* of the pre-R1 era — PRIME and rStar-Math shipped in early January 2025, and R1 (Jan 20) buried their lines within weeks. The author's full reflection: [《通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点》](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/) — *"22 年 RL4LMs 出来后我兴奋的晚上觉都没睡着，第一时间就读了他们的代码。"*
+> The *final days* of the pre-R1 reasoning era: rStar-Math and PRIME shipped in early January 2025, and R1 (Jan 20) buried their lines within weeks. Earlier personal RL × NLP anchors are preserved in [ARCHIVE.md](ARCHIVE.md).
 
 | Abbr | Title | From | Year | Link | Note |
 |------|-------|------|------|------|------|
-| RL4LMs / NLPO | RL (Not) for NLP: Benchmarks, Baselines, Building Blocks | Allen | 2022 | [paper](http://arxiv.org/abs/2210.01241), [GitHub](https://github.com/allenai/rl4lms) | Personally cited milestone in [AI-Future-Framework](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/) — first felt RL × NLP could really land |
-| FTHP | Fine-Tuning Language Models from Human Preferences | OpenAI | 2020 | [paper](http://arxiv.org/abs/1909.08593), [GitHub](https://github.com/openai/lm-human-preferences) | OpenAI's earliest RLHF experiment; the seed of InstructGPT/ChatGPT |
-| Quark | Quark: Controllable Text Generation with Reinforced [Un]learning | Allen | 2022 | [paper](http://arxiv.org/abs/2205.13636), [GitHub](https://github.com/GXimingLu/Quark) | Early attempt at RL for controllable generation × unlearning — niche but conceptually clean |
-| DT | Decision Transformer: RL via Sequence Modeling | Berkeley | 2021 | [paper](https://arxiv.org/abs/2106.01345), [GitHub](https://github.com/kzl/decision-transformer) | The "RL = sequence modeling" reframing — a parallel branch that diverged from the LLM-RL trunk |
 | rStar | rStar: Mutual Reasoning Makes Smaller LLMs Stronger | Microsoft | 2024 | [paper](https://arxiv.org/pdf/2408.06195), [GitHub](https://github.com/zhentingqi/rStar) | High-water mark of the MCTS + SLM mutual-reasoning line — conceptually clean, ended by R1 along with the rest of the search-based branch |
 | rStar-Math | rStar-Math: Small LLMs Can Master Math Reasoning | Microsoft | 2025 | [paper](https://arxiv.org/abs/2501.04519), [GitHub](https://github.com/microsoft/rStar) | Shipped 12 days before R1 — the MCTS+PRM line's peak, instantly buried. The author had a blog half-written when R1 landed: a genuinely good paper born in the wrong era; (described in [R1-New-Paradigm](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/): rule-based verification on intermediate results via Python execution) |
 | PRIME | Process Reinforcement through Implicit Rewards | PRIME-RL | 2025 | [paper](https://curvy-check-498.notion.site/Process-Reinforcement-through-Implicit-Rewards-15f4fcb9c42180f1b498cc9b2eaf896f), [GitHub](https://github.com/PRIME-RL/PRIME) | Implicit PRM (trained as ORM, used as PRM) — the line died with R1, though process reward itself returned later as Track 07's dense rewards; (described in [R1-New-Paradigm](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/)) |
@@ -385,8 +348,6 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | Training-Free GRPO | Training-Free Group Relative Policy Optimization | — | 2025 | [paper](https://arxiv.org/abs/2510.08191) | (omnibus → [Training-Free RL](https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/)) |
 | MemAPO | MemAPO: Memory-Augmented Policy Optimization | — | 2026 | [paper](https://arxiv.org/abs/2603.21520) | (omnibus → [Training-Free RL](https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/)) |
 | Update-Free Steering | Update-Free On-Policy Steering via Verifiers | — | 2026 | [paper](https://arxiv.org/abs/2603.10282) | (omnibus → [Training-Free RL](https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/)) |
-| Prompt Survey | Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in NLP | — | 2021 | [paper](https://arxiv.org/abs/2107.13586) | [Prompt 方法系统综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/) (hard prompts, soft prompts, answer engineering, and prompt-based training as behavior interfaces) |
-| ChatGPT Prompt Engineering | — | — | 2023 | [blog](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/) | Early practical behavior shaping through explicit goals, constraints, examples, roles, and iterative feedback |
 | Activation Engineering | Steering Language Models With Activation Engineering | — | 2023 | [paper](https://arxiv.org/abs/2308.10248) | [激活诱导 LLM 指令跟随](https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/) |
 | Activation Steering (IF) | Improving Instruction-Following in Language Models through Activation Steering | Microsoft | 2024 | [paper](https://arxiv.org/abs/2410.12877) | (omnibus → [激活诱导 LLM 指令跟随](https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/)) |
 | Context Engineering | Context Engineering for AI Agents: Lessons from Building Manus | Manus | 2025 | [blog](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus) | [重识 LLM 法则：上下文工程与数据进化](https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/) |
@@ -397,35 +358,15 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 
 ## Chronological Blog Timeline
 
-All blog posts in publishing order, with the author's one-sentence takeaway. Use this when you want to *follow the narrative arc* rather than search by paper.
+Selected core deep dives in publishing order, with the author's one-sentence takeaway. Earlier and adjacent notes are kept in the archive rather than forced into the main narrative.
 
 | Date | Track | Blog (Chinese) | One-sentence takeaway |
 |------|-------|----------------|------------------------|
-| 2020-12-27 | 06 | [从 Sentence-BERT 谈句子表征](https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/) | Post-training can reshape a pretrained encoder's geometry: siamese and triplet objectives make semantic distance operational. |
-| 2021-07-10 | 06 | [简单的对比学习框架：SimCSE](https://yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/) | Two dropout views plus contrastive learning can turn a pretrained LM into a much better sentence encoder. |
-| 2021-08-18 | 06 | [R-Drop](https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/) | Fine-tuning becomes more stable when two stochastic subnetworks are explicitly forced to agree. |
-| 2021-11-01 | 05 | [MetaICL：Learning to Learn In Context](https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/) | Meta-training on demonstrations teaches a model how to infer a new task from context rather than a task-specific template. |
-| 2021-11-18 | 05 | [Debiasing Techniques for Pre-Trained Language Models](https://yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/) | Debiasing is itself an alignment problem, and reducing a bias score is meaningless if language capability collapses with it. |
-| 2021-11-28 | 06 | [NLP 数据增强综述](https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/) | Paraphrase, noise, and sampling are three reusable ways to alter the data distribution seen during adaptation. |
-| 2021-12-04 | 05 | [Prompt 方法系统综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/) | Hard prompts, soft prompts, and answer engineering are different interfaces for shaping behavior around a pretrained model. |
-| 2021-12-25 | 05 | [多任务 Prompt 训练与 Zero-shot 泛化](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/) | Zero-shot generalization grows from diversity across both supervised tasks and their natural-language prompts. |
-| 2022-08-28 | 05 | [FLAN：Fine-tuned Language Models are Zero-Shot Learners](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/) | Instruction tuning converts a mixture of supervised tasks into a general ability to follow unseen instructions. |
-| 2023-01-21 | 03 | [Put Human in NLP Loop](https://yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/) | Human feedback is not a one-off label: it is a repeated sample → feedback → update loop. |
-| 2023-01-25 | 05 | [ChatGPT Prompt 工程：设计、实践与思考](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/) | Goals, constraints, examples, roles, and iterative correction form an early practical language for training-free behavior shaping. |
-| 2023-02-19 | 03 | [ChatGPT 标注指南：任务、数据与规范](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/) | RLHF starts before RL: demonstrations, rankings, labeler selection, and HHH rules define the target behavior. |
-| 2023-04-15 | 03 | [ChatGPT 基础科普：知其一点所以然](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/) | The foundational RLHF chain is SFT → reward modeling → PPO, with KL anchoring the policy to its supervised base. |
-| 2023-10-15 | 06 | [关于大语言模型的思考](https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/) | Before post-training became a standard label, the agenda was already there: SFT task/data design, LoRA, distillation, and a return to RL. |
-| 2024-02-01 | 03 | [LLM DataManagement：Weaver](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/) | SFT instructions can be inferred backward from strong outputs; preference negatives can be synthesized by minimally violating expert principles. |
-| 2024-12-20 | 05 | [关于 AI 前沿的思考](https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/) | RL and inference-time scaling meet when “learning” is partly moved from parameters into self-generated context and longer deliberation. |
-| 2024-12-31 | 06 | [OMNI 论文速览（2024）](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/) | OmniFlatten and Freeze-Omni show two clean adaptation paths: staged full-duplex post-training or frozen-backbone modality alignment. |
-| 2024-12-31 | 06 | [SLM 论文速览（2024）](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/) | Speech capability can be attached through instruction tuning, enhanced interaction data, or late-fusion PEFT without redefining the post-training problem. |
-| 2024-12-31 | 05 | [LLM 指令跟随论文速览（2024–2025）](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/) | Instruction post-training must balance ICL retention, student–teacher compatibility, and fine-grained input–output preference matching. |
 | 2025-02-17 | 01 | [DeepSeek R1 深度技术解析及其影响](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/) | Data sets the ceiling, algorithms approach it; pure rule-based RL works. |
 | 2025-02-18 | 01 | [少量高质量数据 SFT 激活推理](https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/) | LIMO/s1: small high-quality SFT *activates* reasoning, doesn't *teach* it. |
 | 2025-02-27 | 06 | [LLM、强化、蒸馏讨论](https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/) | Before OPD became the main thread, the core question was already visible: bridge the teacher–student distribution gap instead of copying outputs blindly. |
 | 2025-02-27 | 01 | [R1 相关：RL 数据选择与 Scaling](https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/) | LIMR/ORZ: less-is-more applies to RL data, not just SFT. |
 | 2025-03-02 | 01 | [R1 相关：DPO 数据选择与 DPO 等 RL 算法](https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/) | Online-DPO can rival PPO when paired with the right data pipeline. |
-| 2025-03-08 | 06 | [OMNI 论文速览（2025）](https://yam.gift/2025/03/08/Paper/MM/2025-03-08-OMNI-Papers-2025/) | Phi-4-Multimodal combines modality-specific LoRA routing with multimodal SFT and preference alignment instead of treating modality as a separate training universe. |
 | 2025-03-15 | 01 | [DeepSeek R1 后 LLM 新范式](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/) | The post-R1 path forks into multiple parallel lines (length, scaling, MRT, …). |
 | 2025-03-19 | 02 | [DAPO：为 GRPO 的锦上加四点花](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/) | DAPO = Clip-Higher + Dynamic Sampling + Token-Level Loss + Overlong Reward Shaping. |
 | 2025-03-28 | 02 | [异曲同工的 Dr.GRPO](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/) | Dr.GRPO removes the length & std normalization biases hidden in vanilla GRPO. |
@@ -433,7 +374,6 @@ All blog posts in publishing order, with the author's one-sentence takeaway. Use
 | 2025-04-19 | 02 | [VAPO：基于价值方法的新突破](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/) | Value-based methods come back to compete with critic-free GRPO. |
 | 2025-04-26 | 01 | [Yarz-Logic：R1-Zero 相关实验报告](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/) | Hands-on Logic-RL replication: where R1-Zero's edges are in practice. |
 | 2025-05-01 | 01 | [R1 后范式最佳实践：Seed-Thinking 和 Qwen3](https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/) | Seed-Thinking + Qwen3 are the two most complete industrial post-R1 recipes. |
-| 2025-05-14 | 06 | [从 Voila 看语音端到端发展](https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/) | Voila adapts an LLM to full-duplex speech through multi-task alignment, response-only SFT, and semantic/acoustic token factorization. |
 | 2025-06-09 | 03 | [Reward Model 建模](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/) | General-domain RM needs principles+critique, not a single scalar (DeepSeek-GRM). |
 | 2025-06-19 | 02 | [GRPO 优化在继续：CISPO 和熵](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/) | CISPO shows clip is not just stability — it shapes the explore/exploit edge. |
 | 2025-06-26 | 05 | [指令跟随近期工作梳理（2025 年上半年）](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/) | Complex instruction following becomes post-training once constraints are decomposed into verifiable rewards or preference pairs. |
@@ -476,6 +416,10 @@ All blog posts in publishing order, with the author's one-sentence takeaway. Use
 ---
 
 ## Appendix
+
+### Earlier & Adjacent Notes
+
+Older foundations and neighboring adaptations are grouped by type in [ARCHIVE.md](ARCHIVE.md). They remain searchable without entering the core paper map or timeline.
 
 ### Maintenance
 
