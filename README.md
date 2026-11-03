@@ -1,21 +1,21 @@
-# LLM Post-Training Atlas / 大模型后训练图谱
+# Post-Training Atlas / 后训练图谱
 
-> **An opinionated map of post-R1 LLM post-training — RL, reward, alignment, distillation, agents, and the connections between them.**
+> **An opinionated map of model post-training — the signals, objectives, estimators, feedback loops, and connections that shape pretrained models across modalities.**
 > Every work is read, classified, and cross-linked; most are connected back to a Chinese deep-dive by [hscspring](https://yam.gift).
 
-**Scope: post-R1 LLM post-training · continuously updated**
+**Scope: model post-training across modalities · continuously updated**
 
 [Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
 
-This repository maps the **post-R1 LLM post-training** landscape. RL is its intellectual spine, not its boundary: the real question is how a model's policy is shaped — through reward, preference, demonstration, distillation, context, experience, or interaction.
+This repository maps the **model post-training** landscape. Post-R1 LLM research is its historical starting point and current center of gravity, not its boundary. Text, image, video, world models, and embodied policies are different carriers of the same question: how is a pretrained model further shaped through reward, preference, demonstration, distillation, context, experience, interaction, or distribution matching?
 
 ## Scope & Inclusion Policy
 
-- **Core scope**: post-R1 LLM post-training — RL/RLVR, policy optimization, reward and verifiers, alignment, SFT/DPO, on-policy distillation, agent learning, and post-training stability.
-- **Adjacent methods are included when they clarify the same mechanism**: Training-Free RL, activation/context steering, real-time adaptation, and policy-diff learning belong here when they illuminate how behavior or policy changes.
-- **Cross-domain work is selective**: multimodal, diffusion, flow, and embodied papers are included only when their mechanism transfers back to the shared post-training picture.
+- **Core scope**: post-training of pretrained models across language, multimodal, diffusion, flow, video, world-model, and embodied settings.
+- **Organized by mechanism, not modality**: RL/RLVR, policy optimization, reward and verifiers, alignment, supervised or preference fine-tuning, distillation, distribution matching, agent learning, adaptation, and post-training stability belong to one map.
+- **A work does not need to transfer back to LLMs to qualify**: if it meaningfully shapes a pretrained model after pretraining, it is post-training in its own right.
 - **Pure pre-training is excluded**: scaling laws, NTP, continual pre-training, and base-model construction stay out unless they are necessary context inside a post-training analysis.
-- **The boundary is conceptual, not terminological**: a paper does not need to call itself “RL”; it needs to contribute a meaningful signal, objective, estimator, or feedback loop for shaping policy.
+- **The boundary is conceptual, not terminological**: a paper does not need to call itself “RL” or even use the word “post-training”; it needs to contribute a meaningful signal, objective, estimator, or feedback loop for shaping an already pretrained model.
 
 ## Why this repo (and not another Awesome list)
 
@@ -23,10 +23,10 @@ Awesome lists are *retrievers*. This repo is a *curator*.
 
 - **Has a verdict, not a vote.** Each of the 7 tracks ends with the author's bottom-line judgment ("data sets the ceiling, algorithms approach it"; "most RL is sampling polish, not extrapolation"; "all internal-feedback methods compress entropy → exploration crisis"), not a paper summary.
 - **Cross-links across papers.** RLOO ≡ GRPO with Fnorm=1 (derived in GiGPO); REINFORCE + IS → CISPO loss (extended in CISPO); Activation Steering & Context Engineering are the *upstream signals* of Training-Free RL. These connections only surface when one person reads everything.
-- **A narrative, not a database.** The Chronological Blog Timeline reads as a year-and-a-half *editorial arc*: R1 → GRPO family → Reward modeling → MoE stability → Training-Free RL → policy diff → OPD × RL.
+- **A narrative, not a database.** The Chronological Blog Timeline follows ideas as they connect and branch, rather than separating them into isolated modality silos.
 - **Personal historical anchors.** Pre-R1 works (RL4LMs, FTHP, Quark, DT) live in their own corner with a one-line *why I personally cared*, not as bibliography filler.
 
-**Core coverage**: RL reasoning · GRPO and policy optimization · reward/verifiers · data and scaling · MoE stability · Agentic RL · Training-Free behavior shaping · SFT/RL unification · OPD and policy-diff learning.
+**Coverage**: continuously expanding, organized by shared post-training mechanisms rather than a fixed modality or a closed checklist.
 
 ---
 
@@ -91,8 +91,10 @@ Blog posts on [yam.gift](https://yam.gift) are grouped into 7 tracks. Each verdi
 - **Core thesis**: SFT is a special case of RL (single-path, 1/π_θ-weighted). The question is not "can SFT generalize?" but "which layer is activating vs. memorizing?"
 - **Forgetting law**: on-policy RL stays closer to base (KL-minimal path → less forgetting, RL's Razor); SFT can drift arbitrarily far.
 - **One estimator**: HPT/GFT unify SFT/RL into one policy gradient estimator, differing only in data source and stabilizer.
+- **Embodied SFT × RL — Sim-Real co-training**: Beyond Imitation first initializes a VLA policy with mixed simulated and real demonstrations, then runs closed-loop RL in simulation while retaining an auxiliary SFT loss on scarce real demonstrations. The real-data term is not merely extra training data; it is an anchor that prevents simulation RL from forgetting deployable real-world behavior.
 - **Distribution alignment lens**: SVM / DPO / RLHF / SFT all reduce to aligning a policy distribution to target anchors via log density-ratio rewards (r = log d⁺/d⁻). Differences lie in three axes: anchor count (one vs two), KL direction (forward = mode-covering SFT, reverse = mode-seeking RL/DPO — the same axis as MiniLLM's reverse-KL distillation), and anchor observability (explicit classifier vs implicit optimal policy). SFT's "pure pull, no push" (only d⁺, no d⁻) explains its instability on low-probability tokens (GFT's 1/π_θ explosion).
 - **Distillation–RL bridge**: OPD first isolates a teacher's *capability direction* as policy diff instead of copying its raw output; when that diff comes from an RL-trained teacher, it is also an implicit reward. The same directional signal can reconstruct a target policy (OPD), become a dense reward (Direct-OPD), or reshape verifier gradients without changing their stationary points (OPRD).
+- **Generative-model extension — Self Forcing DMD**: OmniDreams trains on model-generated history to reduce exposure bias, then minimizes reverse KL on model rollouts by turning the generated-vs-real score difference into a direct gradient. It is post-training in its own right, while also revealing a shared pattern across tokens and video: learn on your own distribution, then use a distributional difference as the correction signal.
 
 ### Track 07 — Agentic RL (2025–2026)
 
@@ -333,6 +335,15 @@ Track-to-index map: **01** → R1 reproduction + data/scaling · **02** → GRPO
 | Beyond Teacher | Learning beyond Teacher: Generalized On-Policy Distillation with Reward Extrapolation | — | 2026 | [paper](https://arxiv.org/abs/2602.12125) | (connected in [OPD-RL](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/): OPD is a special case of dense KL-regularized RL) |
 | OPDD | On-Policy Delta Distillation | — | 2026 | [paper](https://arxiv.org/abs/2607.15161) | (connected in [OPD-RL](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/): policy delta used directly as a dense reward) |
 
+### Multimodal, World-Model & Embodied Post-Training
+
+> Post-training does not stop at language. Diffusion, video, world models, and embodied policies belong on the same map when pretrained models are further shaped for generation, control, interaction, or deployment.
+
+| Abbr | Title | From | Year | Link | My Notes |
+|------|-------|------|------|------|----------|
+| RL-Co | Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models | — | 2026 | [paper](https://arxiv.org/abs/2602.12628) | [VLA Sim-Real 协同训练](https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/) (mixed sim+real SFT warm-starts the policy; closed-loop simulation RL adds capability while an auxiliary real-data SFT loss anchors the policy against catastrophic forgetting) |
+| OmniDreams | OmniDreams: Real-Time Generative World Model for Closed-Loop Autonomous Vehicle Simulation | NVIDIA | 2026 | [paper](https://arxiv.org/abs/2606.03159) | [OmniDreams：实时世界模型背后的 Self Forcing 与 DMD](https://yam.gift/2026/11/02/Embodied/2026-11-02-OmniDreams/) (Self Forcing closes the train–inference history gap; DMD turns generated-vs-real score difference into the gradient of reverse-KL distribution alignment — the same “learn on your own distribution, correct by difference” lens expressed in a video world model) |
+
 ### Beyond RL — Training-Free / Behavior Shaping / Real-time PEFT
 
 > *Post-RL* directions covered in the same blogs. The paradigm is moving away from classical RL training, into context, behavior, and parameter-efficient adaptation. They are not RL by the textbook definition, but they share the same goal — shape model behavior — and several of them (Activation Steering, Context Engineering) are the **upstream signals** that Training-Free RL only later named explicitly.
@@ -396,6 +407,7 @@ All blog posts in publishing order, with the author's one-sentence takeaway. Use
 | 2026-05-11 | 02 | [TRPO深度拆解：为什么做后训练应该读懂TRPO](https://yam.gift/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/) | TRPO is the theoretical bedrock of PPO and GRPO — IS + Trust Region + Advantage are the three pillars. |
 | 2026-05-18 | 07 | [GAGPO：如果把GiGPO拉回PPO+GAE](https://yam.gift/2026/05/18/NLP/LLM-Training/2026-05-18-GAGPO/) | Critic-free Agentic RL: use GRPO's grouping to estimate V, then GAE for per-step advantage. |
 | 2026-06-01 | 06 | [你可能没那么懂 SFT：SFT 与 RL 的爱恨纠葛](https://yam.gift/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/) | SFT is a special case of RL; the question is "which layer is activating vs. memorizing?" |
+| 2026-06-07 | 06 | [VLA Sim-Real 协同训练](https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/) | Mixed sim+real SFT initializes the VLA policy; simulation RL expands it while a real-demonstration SFT anchor preserves deployable behavior. |
 | 2026-06-22 | 02 | [为什么TRPO在LLM里不能用？——FiberPO的起点](https://yam.gift/2026/06/22/NLP/LLM-Training/2026-06-22-TRPO-Vanishing/) | γ must be 1 in LLM RL → TRPO trust region vanishes to zero; PPO/GRPO clip is empirical δ-relaxation. |
 | 2026-07-04 | 06 | [从 SVM 到分布对齐：后训练方法的另一个统一视角](https://yam.gift/2026/07/04/NLP/LLM-Training/2026-07-04-SVM-to-Alignment/) | SVM/DPO/RLHF/SFT are all distribution alignment — differing in anchor count, KL direction, and anchor observability. |
 | 2026-07-13 | 02 | [SIS：不硬clip，大部分token其实可转为on-policy](https://yam.gift/2026/07/13/NLP/LLM-Training/2026-07-13-SIS/) | Rejection sampling turns most off-policy tokens on-policy — keep the gradient signal instead of clipping it; provably tighter error bound (D_SIS ≤ D). |
@@ -403,6 +415,7 @@ All blog posts in publishing order, with the author's one-sentence takeaway. Use
 | 2026-08-26 | 03 | [Reward 设计的本质：从 hack 到 hard](https://yam.gift/2026/08/26/AI/2026-08-26-Reward-Design-Philosophy/) | Reward is a lossy compression of preference; reward hack is structural, not a bug — treat reward as a prior to revise, not ground truth. |
 | 2026-09-11 | 02 | [从Pass@k到advantage，一场意想不到的邂逅](https://yam.gift/2026/09/11/NLP/LLM-Training/2026-09-11-PassK-Training/) | Pass@k training = dynamically weakening negative-advantage by global correct-count; converges to the whole 2025-H2 advantage-shaping red ocean (AAPO/ProGRPO/GRPOEA/EMPG/BAPO/ASPO). |
 | 2026-10-15 | 06 | [OPD-RL 新范式：diff 出圈——从目标，到奖励，再到梯度](https://yam.gift/2026/10/15/NLP/LLM-Training/2026-10-15-OPD-RL-New-Paradigm/) | A teacher's policy diff can reconstruct a target, act as an implicit dense reward, or recondition verifier gradients — distillation and RL meet through the same directional signal. |
+| 2026-11-02 | 06 | [OmniDreams：实时世界模型背后的 Self Forcing 与 DMD](https://yam.gift/2026/11/02/Embodied/2026-11-02-OmniDreams/) | Self Forcing trains on the model's own rollout history; DMD uses generated-vs-real score difference as a reverse-KL correction signal. |
 
 ---
 
@@ -426,6 +439,6 @@ The index is deliberately hand-curated. Run `python3 scripts/check_readme.py` be
 
 ### Citation / Feedback
 
-If this index or the linked blog posts are useful, leave a note on [GitHub Issues](https://github.com/hscspring/llm-post-training-atlas/issues), or cite [yam.gift](https://yam.gift) when referencing.
+If this index or the linked blog posts are useful, leave a note on [GitHub Issues](https://github.com/hscspring/post-training-atlas/issues), or cite [yam.gift](https://yam.gift) when referencing.
 
 > "Don't chase the wind — chase the long view; measure one year by the yardstick of ten." — 长琴
