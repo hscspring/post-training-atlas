@@ -5,7 +5,7 @@
 
 **Scope: model post-training across modalities · continuously updated**
 
-[Start Here](#start-here) · [Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
+[Start Here](#start-here) · [Map](#atlas-at-a-glance) · [Verdicts](#7-tracks--the-authors-verdicts) · [Papers](#papers) · [Timeline](#chronological-blog-timeline) · [Scope](#scope--inclusion-policy)
 
 ## Start Here
 
@@ -15,6 +15,30 @@ You do not need to read this atlas from top to bottom.
 - **Looking up a method or paper?** Jump to the [paper index](#papers), then follow its **My Notes** link for the corresponding Chinese deep-dive.
 - **Following the author's thinking?** Read the [chronological timeline](#chronological-blog-timeline), where ideas are kept in publishing order rather than reorganized after the fact.
 - **Checking what belongs here?** Read the [inclusion policy](#scope--inclusion-policy); earlier and adjacent work is preserved in [the archive](ARCHIVE.md).
+
+## Atlas at a Glance
+
+```mermaid
+flowchart TD
+    P["Pretrained Model<br/>starting point"] --> T1["01 · R1 Full-Chain<br/>data · SFT · RL"]
+
+    T1 --> T2["02 · GRPO Family<br/>policy optimization"]
+    T1 --> T3["03 · Reward, Data & Verifiers<br/>where learning signals come from"]
+    T3 -->|signals & feedback| T2
+
+    T2 --> T4["04 · MoE RL Stability<br/>cross-architecture constraints"]
+    T2 --> T7["07 · Agentic RL<br/>step-level credit assignment"]
+    T2 --> T5["05 · Paradigm Frontier<br/>context · experience · online learning"]
+    T3 -->|internal feedback| T5
+
+    T2 --> T6["06 · Unified Theory<br/>SFT × RL · distillation · distribution alignment"]
+    T3 --> T6
+    T4 --> T6
+    T5 --> T6
+    T7 --> T6
+```
+
+Arrows show conceptual dependency and extension, not a strict chronology. Track 06 is the converging lens; it connects the mechanisms above rather than replacing them as a final stage.
 
 This repository maps the **modern model post-training** landscape. Its center of gravity is RL, reward, SFT × RL, distillation, and distribution alignment. Text, image, video, world models, and embodied policies are different carriers of those mechanisms, not separate silos and not automatic reasons for inclusion.
 
